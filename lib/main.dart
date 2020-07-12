@@ -123,7 +123,7 @@ class Minesweeper extends StatefulWidget{
   {
     if(board[rowindex][coloumnindex].hasbomb)
       {
-        handleGameOver();
+        showbombsquares();
       }
     if(board[rowindex][coloumnindex].bombsaround==0)
       {
@@ -141,6 +141,7 @@ class Minesweeper extends StatefulWidget{
         handleWin();
       }
   }
+
   checkneighboursquares(int i,int j)
   {
     int position = (i * coloumn) + j;
@@ -328,5 +329,22 @@ class Minesweeper extends StatefulWidget{
         );
       },
     );
+  }
+
+  void showbombsquares() {
+    for(int i=0;i<row;i++)
+      {
+       for(int j=0;j<coloumn;j++)
+         {
+           if(board[i][j].hasbomb)
+             {
+                setState(() {
+                  openedSquare[i*coloumn+j]=true;
+                  squaresLeft--;
+                });
+             }
+         }
+      }
+     handleGameOver();
   }
  }
